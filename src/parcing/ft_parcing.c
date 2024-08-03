@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parcing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/07/30 18:24:42 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/03 18:21:13 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char *new_cmd()
             continue;
         if ((global_data->cmd[i] == '>' || global_data->cmd[i] == '<'))
             solve_here_doc(&i, &str);
-        if (global_data->cmd[i] == '\'' || global_data->cmd[i] == '"')
+        if (global_data->cmd[i] == '"')
             continue;
         str = ft_strjoin_char(str, global_data->cmd[i]);  
     }
@@ -158,6 +158,7 @@ t_list *ft_filtre()
     global_data->cmd = new_cmd();
     if (!global_data->cmd)
         return (NULL);
-    // printf("--> cmd : %s\n", global_data->cmd);
+    global_data->cmd = handle_expand();
+    printf("--> cmd : %s\n", global_data->cmd);
     return (ft_fill_tokens());
 }

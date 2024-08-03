@@ -43,8 +43,11 @@ t_limiter	*ft_lstnew_limiter(char *name);
 t_limiter	*ft_lstlast_limiter(t_limiter *limiter);
 void ft_lstadd_back_limiter(t_limiter **limiter, t_limiter *new);
 int	ft_lstsize_limiter(t_limiter *lim);
-
-
+void    expand(int *i, char **str);
+void    join_single_quote(int *i, char **str);
+char *handle_expand();
+void    handle_here_doc_expand(int *i, char **str);
+int here_doc_vs_expand(int i);
 void check_files(t_list *list);
 int check_out(t_list *tmp);
 int check_in(t_list *tmp);

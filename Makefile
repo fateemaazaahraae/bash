@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiima <tiima@student.42.fr>                +#+  +:+       +#+         #
+#    By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 10:06:30 by aakouhar          #+#    #+#              #
-#    Updated: 2024/07/31 19:37:46 by tiima            ###   ########.fr        #
+#    Updated: 2024/08/03 18:17:39 by aakouhar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ EXECUTION_SRC = ./src/execution/exec_builtins.c ./src/execution/exec_non_builtin
 				./src/execution/builtins/pwd.c  ./src/execution/builtins/unset.c ./src/execution/env/env_to_2D.c ./src/execution/env/get_env.c ./src/execution/env/get_env_utils.c \
 				./src/execution/execution_tools.c ./src/execution/redirection.c ./src/execution/error.c ./src/execution/builtins/print_sorted_env.c
 PARCING_SRC = ./src/parcing/fill.c ./src/parcing/check.c ./src/parcing/errors.c ./src/parcing/ft_parcing.c ./src/parcing/parcing_utils.c ./src/parcing/files.c \
-				./src/parcing/redir_lst_utils.c ./src/parcing/fill_cmd_args.c ./src/parcing/here_doc_lst.c ./src/parcing/check_permission.c #./src/execution/ft_free.c
+				./src/parcing/redir_lst_utils.c ./src/parcing/fill_cmd_args.c ./src/parcing/here_doc_lst.c ./src/parcing/check_permission.c ./src/parcing/expand.c \
+				./src/parcing/expand_utils.c
 
 OBJ = $(SRC:.c=.o) $(PARCING_SRC:.c=.o) $(EXECUTION_SRC:.c=.o)
 
