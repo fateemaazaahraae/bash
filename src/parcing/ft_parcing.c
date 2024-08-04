@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parcing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/04 11:55:06 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:33:13 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,13 @@ void    return_special_char(t_list *list)
 
     t_list *tmp;
     tmp = list;
-    while (tmp) // ls -la |||| cat hello
+    while (tmp)
     {
         i = -1;
-    // printf("iiiiiii%d\n", list->i);
-        while (tmp->mini_tokens[++i]) // ls -la
+        while (tmp->mini_tokens[++i])
         {
             j = -1;
-            while(tmp->mini_tokens[i][++j]) // l s - l a
+            while(tmp->mini_tokens[i][++j])
             {
                 if (is_special(tmp->mini_tokens[i][j] * (-1), 3))
                     tmp->mini_tokens[i][j] *= -1;
@@ -158,6 +157,5 @@ t_list *ft_filtre()
         return (NULL);
     global_data->cmd = handle_expand();
     global_data->cmd = remove_quotes();
-    printf("--> cmd : %s\n", global_data->cmd);
     return (ft_fill_tokens());
 }

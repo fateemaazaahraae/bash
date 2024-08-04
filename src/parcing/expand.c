@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/04 12:17:36 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:07:33 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void    join_single_quote(int *i, char **str)
         (*i)++;
     }
     if (global_data->cmd[*i] == '\'')
-    {
         *str = ft_strjoin_char(*str, '\'');
-        // (*i)++;
-    }
 }
 
 void    expand(int *i, char **str)
@@ -64,7 +61,6 @@ char *handle_expand()
 
     i = -1;
     str = NULL;
-    // printf("zzzzz %s\n", global_data->cmd);
     while (global_data->cmd[++i])
     {
         if (global_data->cmd[i] == '\'')
@@ -77,7 +73,6 @@ char *handle_expand()
         else
             str = ft_strjoin_char(str, global_data->cmd[i]);
     }
-    printf("\n");
     free(global_data->cmd);
     return (str);
 }

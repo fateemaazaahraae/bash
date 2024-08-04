@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:55:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/30 16:22:23 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 16:34:56 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdio.h>
 
 typedef enum s_type{
 	APPEND,
@@ -40,7 +41,6 @@ typedef struct s_limiter
 
 typedef struct s_list
 {
-	int i;
 	char			*content;
 	char 			**mini_tokens;
 	char 			**cmd_args;
@@ -51,6 +51,7 @@ typedef struct s_list
 	int				pipe_fd[2];
 	pid_t			pid;
 	t_limiter		*limiter;
+	int				heredoc_fd[2];
 	struct s_list	*next;
 }			t_list;
 

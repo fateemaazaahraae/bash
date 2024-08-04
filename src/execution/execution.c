@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:16:28 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/31 12:26:53 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 16:45:35 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,22 @@ void    run_execution(t_list *list)
     tmp = list;
     while (tmp)
     {
+        if (tmp->limiter)
+            here_doc(tmp);
         if (execute_cmd(tmp))
             break;
         if (tmp->outfile != 1)
 			close(tmp->outfile);
         tmp = tmp->next;
     }
-    while (wait(NULL) > 0);
+    tmp = list;
+    while (tmp)
+    {
+        if (tmp->pid >= 0)
+            waitpid(tmp->pid, &global_data->exit_status, 0);
+        tmp = tmp->next;
+    }
+    // while (wait(NULL) > 0);
 }
 
 void    execution(t_list *list)
@@ -45,13 +54,6 @@ void    execution(t_list *list)
     run_execution(list);
     restore_stdio(stdin, stdout);
 }
-
-
-
-
-
-
-
 
 
 // void    red_one_command(t_list *list)
