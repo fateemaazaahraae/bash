@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/03 18:21:06 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:17:36 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 
 void    join_single_quote(int *i, char **str)
 {
+    if (global_data->cmd[*i] == '\'')
+    {
+        *str = ft_strjoin_char(*str, '\'');
+        (*i)++;
+    }
     while (global_data->cmd[*i] && global_data->cmd[*i] != '\'')
     {
         *str = ft_strjoin_char(*str, global_data->cmd[*i]);
         (*i)++;
     }
-    // (*i)++;
+    if (global_data->cmd[*i] == '\'')
+    {
+        *str = ft_strjoin_char(*str, '\'');
+        // (*i)++;
+    }
 }
 
 void    expand(int *i, char **str)
@@ -55,22 +64,36 @@ char *handle_expand()
 
     i = -1;
     str = NULL;
+    // printf("zzzzz %s\n", global_data->cmd);
     while (global_data->cmd[++i])
     {
         if (global_data->cmd[i] == '\'')
-        {
-            i++;
             join_single_quote(&i, &str);
-        }
-        else if (global_data->cmd[i] == '$' && global_data->cmd[i + 1] && global_data->cmd[i + i] != ' ')
+        else if (global_data->cmd[i] == '$' && global_data->cmd[i + 1] && global_data->cmd[i + 1] != ' ')
         {
             i++;
             expand(&i, &str);
         }
-        // else if (global_data->cmd[i] == '"')
-        //     continue;
         else
             str = ft_strjoin_char(str, global_data->cmd[i]);
+    }
+    printf("\n");
+    free(global_data->cmd);
+    return (str);
+}
+
+char    *remove_quotes()
+{
+    int     i;
+    char    *str;
+
+    i = -1;
+    str = NULL;
+    while (global_data->cmd[++i])
+    {
+        if (global_data->cmd[i] == '"' || global_data->cmd[i] == '\'')
+            continue ;
+        str = ft_strjoin_char(str, global_data->cmd[i]);
     }
     free(global_data->cmd);
     return (str);

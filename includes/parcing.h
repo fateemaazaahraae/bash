@@ -51,6 +51,7 @@ int here_doc_vs_expand(int i);
 void check_files(t_list *list);
 int check_out(t_list *tmp);
 int check_in(t_list *tmp);
+char    *remove_quotes();
 int init_program(char **av, int ac, char **envp);
 
 #endif
