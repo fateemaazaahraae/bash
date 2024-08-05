@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:02:17 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/03 18:23:30 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/04 19:28:57 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
+/*this function check if we have << before the $ => we have expand as limiter which should
+    not expand*/
 int here_doc_vs_expand(int i)
 {
     i -= 2;
@@ -20,6 +22,7 @@ int here_doc_vs_expand(int i)
     return (0);
 }
 
+/*this fucntion if the expand is limiter it hold it as it is and join it with str*/
 void    handle_here_doc_expand(int *i, char **str)
 {
     int start;

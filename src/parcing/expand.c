@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/04 12:17:36 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/04 19:17:24 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*join_single_quote function joing all things inside single quote
+    because we don't expand inside the single quote so we have to ignore
+    it and it join it in str (the string we will return)*/
 void    join_single_quote(int *i, char **str)
 {
     if (global_data->cmd[*i] == '\'')
@@ -25,12 +28,14 @@ void    join_single_quote(int *i, char **str)
         (*i)++;
     }
     if (global_data->cmd[*i] == '\'')
-    {
         *str = ft_strjoin_char(*str, '\'');
-        // (*i)++;
-    }
 }
 
+/*expand function simply it expand the vars but in here_doc if the expand
+    is limiter we don't expand it so we check it first then we continue
+    we check if we have $? if yes we replace it with the last exit status
+    if no we take the string after $ and we seach in env for it if we found
+    it we replace the key by it value if not we just do nothing*/
 void    expand(int *i, char **str)
 {
     int start;
@@ -57,6 +62,7 @@ void    expand(int *i, char **str)
     (*i)--;
 }
 
+/* handle_expand function will expand the vars and free the global_data->cmd and return the new one*/
 char *handle_expand()
 {
     int i;
@@ -64,7 +70,6 @@ char *handle_expand()
 
     i = -1;
     str = NULL;
-    // printf("zzzzz %s\n", global_data->cmd);
     while (global_data->cmd[++i])
     {
         if (global_data->cmd[i] == '\'')
@@ -77,11 +82,11 @@ char *handle_expand()
         else
             str = ft_strjoin_char(str, global_data->cmd[i]);
     }
-    printf("\n");
     free(global_data->cmd);
     return (str);
 }
 
+/* after expand we remove the master quote ex : echo "'hello'" ----> echo 'hello'*/
 char    *remove_quotes()
 {
     int     i;

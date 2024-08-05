@@ -6,17 +6,11 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:55:06 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/30 19:27:26 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 15:48:25 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
-
-void    close_pipe(t_list *list)
-{
-    close(list->pipe_fd[0]);
-    close(list->pipe_fd[1]);
-}
 
 void dup_out_pipe(t_list *list)
 {
@@ -30,7 +24,7 @@ void dup_out_pipe(t_list *list)
         else
         {
             dup2(list->pipe_fd[1], STDOUT_FILENO);
-            close_pipe(list);
+            close_pipe(list, 0);
         }
     }
     else if (list->outfile > 1)
@@ -62,39 +56,4 @@ void save_stdio(int *saved_stdin, int *saved_stdout)
         perror("dup");
         exit(EXIT_FAILURE);
     }
-}
-
-void here_doc(t_list *list)
-{
-    int heredoc_fd[2];
-    char *line;
-    
-    while (list->limiter)
-    {
-        if (pipe(heredoc_fd) == -1)
-        {
-            perror("pipe");
-            exit(EXIT_FAILURE);
-        }
-        while ((line = readline("> ")) != NULL)
-        {
-            if (!ft_strcmp(line, list->limiter->lim))
-            {
-                free(line);
-                break;
-            }
-            write(heredoc_fd[1], line, ft_strlen(line));
-            write(heredoc_fd[1], "\n", 1);
-            free(line);
-        }
-        if (list->limiter->next)
-        {
-            close(heredoc_fd[0]);
-            close(heredoc_fd[1]);
-        }
-        list->limiter = list->limiter->next;
-    }
-    close(heredoc_fd[1]);
-    dup2(heredoc_fd[0], STDIN_FILENO);
-    close(heredoc_fd[0]);
 }

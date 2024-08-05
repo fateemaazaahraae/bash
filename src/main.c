@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/04 18:04:31 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 18:57:11 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int ac, char **av, char **env)
     while (1)
     {
         // signal(SIGINT, &ft_handler);
-        global_data->cmd = readline("\x1b[32mminishell $> \x1b[0m");
+        global_data->cmd = readline("\x1b[36mminishell $> \x1b[0m");
         if (!global_data->cmd)
         {
             printf("exittttttttttttt\n");
@@ -57,12 +57,13 @@ int main(int ac, char **av, char **env)
         }
         add_history(global_data->cmd);
         list = ft_filtre();
+        printf("hello\n");
         if (!list)
         {
             free(global_data->cmd);
             continue;
         }
-        // execution(list);
+        execution(list);
         // ft_free_struct(&list);
     }
     return (global_data->exit_status);
