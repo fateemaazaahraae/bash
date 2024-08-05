@@ -26,7 +26,9 @@ typedef enum s_error
     OLDPWD_NOT_SET,
     CHDIR,
     ENV_ERR,
-    EXPORT_ERR
+    EXPORT_ERR,
+    NO_SUCH_FILE,
+    PERR_DENIED
 }   t_error;
 
 
@@ -116,6 +118,11 @@ int    execute_cmd(t_list *list);
 void    ft_expand(int *i, char **str, char *line);
 char    *expand_in_here_doc(char *line);
 void here_doc(t_list *list);
+int check_in(t_redir *infile);
+int check_out(t_redir *outfile);
+int open_files(t_list *list);
+void    dup_infile(t_redir *infile);
+void    dup_outfile(t_redir *outfile);
 
 
 #endif

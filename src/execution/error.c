@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:35:04 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/31 13:08:09 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/05 17:42:23 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,17 @@ void    exit_func(t_error err, char *cmd)
         ft_putstr_fd("minishell: export: `", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
+    }
+    if (err == NO_SUCH_FILE)
+    {
+        ft_putstr_fd("minishell: ", STDERR_FILENO);
+        ft_putstr_fd(cmd, STDERR_FILENO);
+        ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+    }
+    if (err == PERR_DENIED)
+    {
+        ft_putstr_fd("minishell: ", STDERR_FILENO);
+        ft_putstr_fd(cmd, STDERR_FILENO);
+        ft_putendl_fd(": Permission denied", STDERR_FILENO);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 09:35:27 by fbazaz            #+#    #+#             */
-/*   Updated: 2023/11/22 10:48:12 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/05 11:13:25 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *src)
 	size_t	len;
 	char	*copy;
 
+	// if (!src)
+	// 	return (NULL);
 	len = ft_strlen(src);
 	copy = malloc(sizeof(char) * (len + 1));
 	if (copy == NULL)

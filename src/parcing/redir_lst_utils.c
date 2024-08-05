@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:00:38 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/30 19:28:37 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/05 19:09:06 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,12 @@ t_redir	*ft_lstnew_redir(char *name, int flag)
 	if (!node)
 		return (NULL);
     if (flag == 1)
-    {
-        node->fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         node->type = OUTPUT;
-    }
     else if (flag == 2)
-    {
-        node->fd = open(name, O_WRONLY | O_CREAT | O_APPEND, 0644);
         node->type = APPEND;
-    }
     else
-    {
-        node->fd = open(name, O_RDONLY);
         node->type = INPUT;
-    }
-	node->name = ft_strdup(name);
+	    node->name = ft_strdup(name);
 	node->next = NULL;
 	return (node);
 }
@@ -65,15 +56,15 @@ t_redir	*ft_lstlast_redir(t_redir *redir)
 	return (redir);
 }
 
-int	ft_lstsize_limiter(t_limiter *lim)
+int	ft_lstsize_redir(t_redir *redir)
 {
 	int	counter;
 
 	counter = 0;
-	while (lim != NULL)
+	while (redir != NULL)
 	{
 		counter++;
-		lim = lim->next;
+		redir = redir->next;
 	}
 	return (counter);
 }

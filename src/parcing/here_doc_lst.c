@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:07:54 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/24 17:27:46 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/05 18:27:55 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,17 @@ void ft_lstadd_back_limiter(t_limiter **limiter, t_limiter *new)
     }
     tmp = ft_lstlast_limiter(*limiter);
     tmp->next = new;
+}
+
+int	ft_lstsize_limiter(t_limiter *lim)
+{
+	int	counter;
+
+	counter = 0;
+	while (lim != NULL)
+	{
+		counter++;
+		lim = lim->next;
+	}
+	return (counter);
 }

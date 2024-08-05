@@ -37,6 +37,7 @@ void ft_lstadd_back_redir(t_redir **redir, t_redir *new);
 t_redir	*ft_lstlast_redir(t_redir *redir);
 t_redir	*ft_lstnew_redir(char *name, int flag);
 void ft_lstclear_redir(t_redir **lst);
+int	ft_lstsize_redir(t_redir *redir);
 
 void ft_lstclear_limiter(t_limiter **lst);
 t_limiter	*ft_lstnew_limiter(char *name);
@@ -48,9 +49,6 @@ void    join_single_quote(int *i, char **str);
 char *handle_expand();
 void    handle_here_doc_expand(int *i, char **str);
 int here_doc_vs_expand(int i);
-void check_files(t_list *list);
-int check_out(t_list *tmp);
-int check_in(t_list *tmp);
 char    *remove_quotes();
 int init_program(char **av, int ac, char **envp);
 int is_special(char c, int flag);
