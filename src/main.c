@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/04 18:57:11 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/05 09:57:56 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int main(int ac, char **av, char **env)
         }
         add_history(global_data->cmd);
         list = ft_filtre();
-        printf("hello\n");
+        // printf("hello\n");
         if (!list)
         {
             free(global_data->cmd);
