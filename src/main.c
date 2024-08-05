@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/03 16:32:36 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:04:24 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main(int ac, char **av, char **env)
             free(global_data->cmd);
             continue;
         }
-        // execution(list);
+        execution(list);
         // ft_free_struct(&list);
     }
     return (global_data->exit_status);
