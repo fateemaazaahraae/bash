@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:16:28 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 16:45:35 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 18:07:44 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void    run_execution(t_list *list)
     tmp = list;
     while (tmp)
     {
-        if (tmp->limiter)
-            here_doc(tmp);
+        // if (tmp->limiter)
+        //     here_doc(tmp);
         if (execute_cmd(tmp))
             break;
         if (tmp->outfile != 1)

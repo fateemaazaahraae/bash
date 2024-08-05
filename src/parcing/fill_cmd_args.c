@@ -6,12 +6,13 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:38:00 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/30 16:29:54 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:38:25 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
+/*this fuction count cmd + the number of its args to allocate memory for cmd_args*/
 static int count_args(char **mini_tokens)
 {
     int i;
@@ -32,6 +33,8 @@ static int count_args(char **mini_tokens)
     return (len);
 }
 
+/*this function check if there if > or < it will go to handle redirection else it store the 
+    args in cmd_args*/
 static void    handle_args_and_redir(t_list *tmp)
 {
     int     i;
@@ -55,6 +58,8 @@ static void    handle_args_and_redir(t_list *tmp)
     tmp->cmd_args[j] = NULL;
 }
 
+/*this function fill cmd_args ex ls -a > p -l --> cmd_args[][] = {"ls", "-a", "-l", NULL}
+    so it store the cnd and its args in cmd_args and it create a linked list of files*/
 void    fill_cmd_args(t_list *list)
 {
     int     count;

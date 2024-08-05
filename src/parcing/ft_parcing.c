@@ -6,12 +6,14 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/04 16:33:13 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:33:04 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../../includes/minishell.h"
 
+/*filtre_1 check if there is a | in the end of our cmd and check
+        if there is an unclosed quote*/
 int filtre_1()
 {
     int     i;
@@ -34,6 +36,7 @@ int filtre_1()
     return (0);
 }
 
+/* check if c is a special char : " <|>;&*(){}[]\t"*/
 int is_special(char c, int flag)
 {
     int i;
@@ -54,6 +57,8 @@ int is_special(char c, int flag)
     return (0);
 }
 
+/*slove_between_quote function if multiple all special_char by -1 as 
+    '\'' or '"' or '|' etc (see function above)*/
 void    solve_between_quote()
 {
     int i;
@@ -79,51 +84,8 @@ void    solve_between_quote()
     }
 }
 
-void solve_here_doc(int *i, char **str)
-{
-    if (global_data->cmd[*i] == '<' || global_data->cmd[*i] == '>')
-    {
-        if ((*i) > 0 && global_data->cmd[(*i) - 1] != ' ')
-            *str = ft_strjoin_char(*str, ' ');
-        *str = ft_strjoin_char(*str, global_data->cmd[*i]);
-        if (global_data->cmd[*i + 1] == global_data->cmd[*i])
-        {
-            (*i)++;
-            *str = ft_strjoin_char(*str, global_data->cmd[*i]);
-        }
-        if (global_data->cmd[*i + 1] != ' ' && global_data->cmd[*i + 1] != '\0')
-            *str = ft_strjoin_char(*str, ' ');
-    }
-    else
-        *str = ft_strjoin_char(*str, global_data->cmd[*i]);
-    (*i)++;
-    // if (data->cmd[*i] != '\0')
-    //     solve_here_doc(data, i, str, here_doc);
-}
-
-void    return_special_char(t_list *list)
-{
-    int i;
-    int j;
-
-    t_list *tmp;
-    tmp = list;
-    while (tmp)
-    {
-        i = -1;
-        while (tmp->mini_tokens[++i])
-        {
-            j = -1;
-            while(tmp->mini_tokens[i][++j])
-            {
-                if (is_special(tmp->mini_tokens[i][j] * (-1), 3))
-                    tmp->mini_tokens[i][j] *= -1;
-            }
-        }
-        tmp = tmp->next;   
-    }
-}
-
+/*new_cmd function add spaces and remove extra spaces ex : ls      -al ----> ls -al 
+    and ls -al>p|cat p -----> ls -al > p | cat p */
 char *new_cmd()
 {
     int i;
@@ -146,8 +108,10 @@ char *new_cmd()
     return (str);
 }
 
+/*this function will filtre our input cmd to check syntax error*/
 t_list *ft_filtre()
 {
+    /*strtrim will remove spaces in the start and the end of the string*/
     global_data->cmd = ft_strtrim(global_data->cmd, " \t");
     if (filtre_1())
         return (NULL);

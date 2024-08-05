@@ -6,12 +6,14 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:17:20 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/30 16:32:45 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:44:06 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
+/*this function check if there is << it will handle here doc it create a linked
+    list of limiters else so we have input or output file*/
 void    handle_here_doc(t_list *tmp, int i)
 {
     t_limiter *new;
@@ -30,6 +32,9 @@ void    handle_here_doc(t_list *tmp, int i)
         handle_input_output(tmp, tmp->mini_tokens, i);
 }
 
+/*this fucntion check if there if > it open file with O_TRUNC flag and add it 
+    to the linked list (out) else ">>" it open file with O_APPEND flag and add it
+    else we have < so it open the file O_RDONLY and add it to the linked list (in)*/
 void    handle_input_output(t_list *tmp, char **args, int i)
 {
     t_redir *new_redir;
@@ -48,4 +53,25 @@ void    handle_input_output(t_list *tmp, char **args, int i)
         ft_lstadd_back_redir(&tmp->in, new_redir);
     }
 }
-// ls <f1 -a >f2 -l>f3 | cat >> f4 -e >f5 | rm << hh -r << hhh > f6 -f
+
+/* solve the problem of space before or after the redir symbol 
+    ex ls>p ---> ls > p or ls<<o ---> ls << o so it add spaces if needed*/
+void solve_here_doc(int *i, char **str)
+{
+    if (global_data->cmd[*i] == '<' || global_data->cmd[*i] == '>')
+    {
+        if ((*i) > 0 && global_data->cmd[(*i) - 1] != ' ')
+            *str = ft_strjoin_char(*str, ' ');
+        *str = ft_strjoin_char(*str, global_data->cmd[*i]);
+        if (global_data->cmd[*i + 1] == global_data->cmd[*i])
+        {
+            (*i)++;
+            *str = ft_strjoin_char(*str, global_data->cmd[*i]);
+        }
+        if (global_data->cmd[*i + 1] != ' ' && global_data->cmd[*i + 1] != '\0')
+            *str = ft_strjoin_char(*str, ' ');
+    }
+    else
+        *str = ft_strjoin_char(*str, global_data->cmd[*i]);
+    (*i)++;
+}

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:41:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 16:00:56 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 18:49:06 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ char    *expand_in_here_doc(char *line)
     return (str);
 }
 
-void here_doc(t_list *list)
+void here_doc(t_list *tmp)
 {
     char *line;
-    
+    t_list *list;
+
+    list = tmp;
     while (list->limiter)
     {
         open_pipes(list->heredoc_fd);

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:18:25 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 15:48:55 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 18:52:01 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int    execute_cmd(t_list *list)
 {
+    if (list->limiter)
+        here_doc(list);
     open_pipes(list->pipe_fd);
     if (list->infile > 0)
     {
@@ -30,6 +32,7 @@ int    execute_cmd(t_list *list)
     }
     else
     {
+        // wait(NULL);
         dup2(list->pipe_fd[0], STDIN_FILENO);
         close_pipe(list, 0);
     }

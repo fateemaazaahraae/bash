@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:10:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/30 19:27:47 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 18:09:36 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void    ft_execve(t_list *list)
         free_2D(paths);
         exit (127);
     }
-    printf("allaho akbar\n");
+    // printf("allaho akbar\n");
     execve(cmd_path, list->cmd_args, env_to_2D(global_data->my_env));
     exit_func(EXECVE, NULL);
 }

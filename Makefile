@@ -6,7 +6,7 @@
 #    By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/10 10:06:30 by aakouhar          #+#    #+#              #
-#    Updated: 2024/08/04 16:00:33 by fbazaz           ###   ########.fr        #
+#    Updated: 2024/08/04 19:48:11 by fbazaz           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ EXECUTION_SRC = ./src/execution/exec_builtins.c ./src/execution/exec_non_builtin
 				./src/execution/builtins/cd.c ./src/execution/builtins/echo.c ./src/execution/builtins/env.c ./src/execution/builtins/export.c ./src/execution/builtins/export_utils.c \
 				./src/execution/builtins/pwd.c  ./src/execution/builtins/unset.c ./src/execution/env/env_to_2D.c ./src/execution/env/get_env.c ./src/execution/env/get_env_utils.c \
 				./src/execution/execution_tools.c ./src/execution/redirection.c ./src/execution/error.c ./src/execution/builtins/print_sorted_env.c ./src/execution/open_here_doc.c
-PARCING_SRC = ./src/parcing/fill.c ./src/parcing/check.c ./src/parcing/errors.c ./src/parcing/ft_parcing.c ./src/parcing/parcing_utils.c ./src/parcing/files.c \
+PARCING_SRC = ./src/parcing/fill.c ./src/parcing/errors.c ./src/parcing/ft_parcing.c ./src/parcing/parcing_utils.c ./src/parcing/files.c \
 				./src/parcing/redir_lst_utils.c ./src/parcing/fill_cmd_args.c ./src/parcing/here_doc_lst.c ./src/parcing/check_permission.c ./src/parcing/expand.c \
-				./src/parcing/expand_utils.c
+				./src/parcing/expand_utils.c #./src/parcing/parcing_utils.c
 
 OBJ = $(SRC:.c=.o) $(PARCING_SRC:.c=.o) $(EXECUTION_SRC:.c=.o)
 
