@@ -106,14 +106,16 @@ void    ft_free_struct(t_list **list);
 void    free_2D(char **str);
 void    ft_lstclear2(t_list **lst);
 
-void    close_pipe(t_list *list);
+void    close_pipe(t_list *list, int i);
 void    exit_func(t_error err, char *cmd);
 void    execution(t_list *list);
 void    run_execution(t_list *list);
 int    execute_cmd(t_list *list);
 
 
+void    ft_expand(int *i, char **str, char *line);
+char    *expand_in_here_doc(char *line);
+void here_doc(t_list *list);
 
-void print_cmd_list(t_list *list);
 
 #endif

@@ -6,12 +6,14 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:00:31 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/31 12:13:33 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/04 19:46:41 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
+/*this function check the permission of the infile we must have permission to
+    read from else we display error */
 int check_in(t_list *tmp)
 {
     while (tmp->in)
@@ -35,6 +37,8 @@ int check_in(t_list *tmp)
     return (0);
 }
 
+/*this function check the permission of the outfile we must have permission to
+    write in else we display error */
 int check_out(t_list *tmp)
 {
     while (tmp->out)
@@ -58,6 +62,7 @@ int check_out(t_list *tmp)
     return (0);
 }
 
+/*this fucntion check the permision of the infiles and outfiles*/
 void check_files(t_list *list)
 {
     t_list *tmp;

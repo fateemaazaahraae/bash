@@ -53,5 +53,8 @@ int check_out(t_list *tmp);
 int check_in(t_list *tmp);
 char    *remove_quotes();
 int init_program(char **av, int ac, char **envp);
+int is_special(char c, int flag);
+void solve_here_doc(int *i, char **str);
+
 
 #endif

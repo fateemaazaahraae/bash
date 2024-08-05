@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiima <tiima@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:52:08 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/31 19:36:33 by tiima            ###   ########.fr       */
+/*   Updated: 2024/08/04 15:10:59 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int is_builtins(char *command)
 
 void    execute_builtins(t_list *list)
 {
+    if (list->outfile > 1)
+    {
+        dup2(list->outfile, STDOUT_FILENO);
+        close(list->outfile);
+    }
     if (ft_strcmp(list->cmd_args[0], "cd") == 0) // done
         cd(list->cmd_args);
     else if (ft_strcmp(list->cmd_args[0], "echo") == 0) // done
