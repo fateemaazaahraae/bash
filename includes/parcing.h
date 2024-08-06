@@ -53,6 +53,7 @@ char    *remove_quotes();
 int init_program(char **av, int ac, char **envp);
 int is_special(char c, int flag);
 void solve_here_doc(int *i, char **str);
+void    handle_ambigous(int start, int end, char **str);
 
 
 #endif

@@ -28,7 +28,8 @@ typedef enum s_error
     ENV_ERR,
     EXPORT_ERR,
     NO_SUCH_FILE,
-    PERR_DENIED
+    PERR_DENIED,
+    AMBIGUOUS
 }   t_error;
 
 
@@ -51,7 +52,7 @@ void    env(char **args);
 
 /* --unset.c-- */
 void    unset_var(t_env **env, char *key);
-void    unset(char **args, t_env *env);
+void    unset(char **args);
 
 /* --export.c-- */
 void    export(char **args);
@@ -66,7 +67,6 @@ int	ft_lstsize2(t_env *lst);
 t_env   *get_env(char **env);
 
 /* --execution.c-- */
-// void execute(t_data *data);
 pid_t    fork_process();
 void    open_pipes(int *pipe_fd);
 
@@ -92,12 +92,9 @@ char *get_cmd_path(char *cmd, char **paths);
 void    ft_execve(t_list *list);
 
 /* --multi_pipe.c-- */
-// void handle_child_process(t_data *data);
-// int execute_cmd(t_list *list);
 void here_doc(t_list *list);
 
 /* --execution_tools.c-- */
-// void    redirection(t_list *list, int *pipe_fd);
 void dup_out_pipe(t_list *list);
 void save_stdio(int *saved_stdin, int *saved_stdout);
 void restore_stdio(int saved_stdin, int saved_stdout);
@@ -123,6 +120,7 @@ int check_out(t_redir *outfile);
 int open_files(t_list *list);
 void    dup_infile(t_redir *infile);
 void    dup_outfile(t_redir *outfile);
+int	ft_is_alphanum(char *str);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 09:00:31 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/05 18:35:56 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 12:23:58 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int check_in(t_redir *infile)
     in = infile;
     while (in)
     {
+        if (in->name[0] == '$')
+            return (exit_func(AMBIGUOUS, in->name), -1); 
         if (ft_strcmp(in->name, "/dev/stdin"))
         {
             if (in->type == INPUT)
@@ -42,6 +44,8 @@ int check_out(t_redir *outfile)
     out = outfile;
     while (out)
     {
+        if (out->name[0] == '$')
+            return (exit_func(AMBIGUOUS, out->name), -1);      
         if (ft_strcmp(out->name, "/dev/stdout"))
         {
             if (out->type == OUTPUT)

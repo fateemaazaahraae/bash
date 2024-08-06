@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 10:09:46 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/07/25 12:53:21 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 11:21:02 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ int	ft_lstsize2(t_env *lst)
 	return (counter);
 }
 
+void    handle_env_i(t_env **head)
+{
+    char *pwd;
+
+    pwd = getcwd(NULL, 0);
+    ft_lstadd_back2(head, ft_lstnew2("PWD", pwd));
+    ft_lstadd_back2(head, ft_lstnew2("SHLVL", "1"));
+    ft_lstadd_back2(head, ft_lstnew2("_", "/nfs/homes/fbazaz/Desktop/minishell/./minishell"));
+    free(pwd);
+}
+
 t_env   *get_env(char **env)
 {
     t_env *head;
@@ -35,6 +46,8 @@ t_env   *get_env(char **env)
 
     i = 0;
     head = NULL;
+    if (!env[0])
+        handle_env_i(&head);
     while(env[i])
     {
         str = ft_strchr(env[i], '=');

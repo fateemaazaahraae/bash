@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/05 10:59:27 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 11:56:06 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ t_list *ft_filtre()
     if (!global_data->cmd)
         return (NULL);
     global_data->cmd = handle_expand();
+    // printf("^^ %s\n", global_data->cmd);
     global_data->cmd = remove_quotes();
     return (ft_fill_tokens());
 }

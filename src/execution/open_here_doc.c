@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:41:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 18:49:06 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 15:00:31 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,26 @@ char    *expand_in_here_doc(char *line)
 void here_doc(t_list *tmp)
 {
     char *line;
-    t_list *list;
+    t_limiter *delimiter;
 
-    list = tmp;
-    while (list->limiter)
+    delimiter = tmp->limiter;
+    while (delimiter)
     {
-        open_pipes(list->heredoc_fd);
+        open_pipes(tmp->heredoc_fd);
         while ((line = readline("> ")) != NULL)
         {
-            if (!ft_strcmp(line, list->limiter->lim))
+            if (!ft_strcmp(line, delimiter->lim))
             {
                 free(line);
                 break;
             }
             if (ft_strchr(line, '$'))
                 line = expand_in_here_doc(line);
-            ft_putendl_fd(line, list->heredoc_fd[1]);
+            ft_putendl_fd(line, tmp->heredoc_fd[1]);
             free(line);
         }
-        if (list->limiter->next)
-            close_pipe(list, 1);
-        list->limiter = list->limiter->next;
+        dup2(tmp->heredoc_fd[0], STDIN_FILENO);
+        close_pipe(tmp, 1);
+        delimiter = delimiter->next;
     }
-    dup2(list->heredoc_fd[0], STDIN_FILENO);
-    close_pipe(list, 1);
 }

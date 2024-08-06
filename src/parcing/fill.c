@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:49:00 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/05 17:01:14 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 11:27:42 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_list    *ft_fill_tokens()
     fill_mini_tokens(list);
     return_special_char(list);
     fill_cmd_args(list);
-    // check_files(list);
     return (list);
 }
 

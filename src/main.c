@@ -6,12 +6,11 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/05 10:59:13 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 12:24:31 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/minishell.h"
-// # include "../includes/parcing.h"
 
 t_global *global_data = NULL;
 

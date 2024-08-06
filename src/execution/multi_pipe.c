@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:18:25 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/05 19:06:31 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 15:05:16 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void    dup_infile(t_redir *infile)
 
 int    execute_cmd(t_list *list)
 {
+    if (list->limiter)
+    {
+        ft_putendl_fd("dkhelt", 1);
+        here_doc(list);
+    }
     open_pipes(list->pipe_fd);
     list->pid = fork_process();
     if (!list->pid)

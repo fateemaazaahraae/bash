@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 15:40:55 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 15:12:59 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 11:16:04 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char *new_cwd_env(char *str)
         path = find_key_env("HOME");
         if (!path)
         {
-            global_data->exit_status = 1;
             exit_func(HOME_NOT_SET, NULL);
             return (NULL);
         }
