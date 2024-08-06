@@ -15,7 +15,9 @@ void split_tokens(t_list **p_tokens);
 t_list    *ft_fill_tokens();
 void fill_mini_tokens(t_list *list);
 
-int print_error(char c);
+int print_error(char c, char x);
+int check_synthax();
+
 void    ft_free_struct(t_list **list); 
 
 void    solve_pipe_problem(char *str);

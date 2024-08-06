@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/08/04 15:04:24 by aakouhar         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/04 18:04:31 by fbazaz           ###   ########.fr       */
->>>>>>> f8e2009e2b05eb57ecc07ff6edf167a85d13cb43
-=======
-/*   Updated: 2024/08/04 18:57:11 by fbazaz           ###   ########.fr       */
->>>>>>> 4901a2df0edabc180e5add0d4e120f6e23b437e7
+/*   Updated: 2024/08/06 19:28:48 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +39,15 @@ void    ft_handler(int x)
         rl_on_new_line();
         rl_replace_line("", 1);
         rl_redisplay();
+        global_data->exit_status = 130;
     }
+    else if (x == SIGQUIT)
+        return ;
+}
+void ft_after(int num)
+{
+    if (num == SIGINT)
+        global_data->exit_status = 130;
 }
 int main(int ac, char **av, char **env)
 {
@@ -56,8 +56,9 @@ int main(int ac, char **av, char **env)
     init_program(av, ac, env);
     while (1)
     {
-        // signal(SIGINT, &ft_handler);
+        signal(SIGINT, &ft_handler);
         global_data->cmd = readline("\x1b[36mminishell $> \x1b[0m");
+        signal(SIGINT, &ft_after);
         if (!global_data->cmd)
         {
             printf("exittttttttttttt\n");
@@ -65,7 +66,6 @@ int main(int ac, char **av, char **env)
         }
         add_history(global_data->cmd);
         list = ft_filtre();
-        printf("hello\n");
         if (!list)
         {
             free(global_data->cmd);
