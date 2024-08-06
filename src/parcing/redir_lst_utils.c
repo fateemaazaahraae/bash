@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:00:38 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 11:28:36 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:29:11 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void ft_lstclear_redir(t_redir **lst)
     while (*lst)
     {
         temp = (*lst)->next;
-        free((*lst)->name);
+        free((*lst)->filename);
         free(*lst);
         *lst = temp;
     }
@@ -36,13 +36,22 @@ t_redir	*ft_lstnew_redir(char *name, int flag)
 	node = malloc(sizeof(t_redir));
 	if (!node)
 		return (NULL);
-    if (flag == 1)
-        node->type = OUTPUT;
-    else if (flag == 2)
-        node->type = APPEND;
-    else
-        node->type = INPUT;
-	    node->name = ft_strdup(name);
+    if (flag == 0 || flag == 1 || flag == 2)
+    {
+        if (flag == 1)
+            node->type = OUTPUT;
+        else if (flag == 2)
+            node->type = APPEND;
+        else
+            node->type = INPUT;
+	        node->filename = ft_strdup(name);
+    }
+    else if (flag == 3)
+    {
+        node->type = HERE_DOC;
+        node->lim = ft_strdup(name);
+        here_doc(node);
+    }
 	node->next = NULL;
 	return (node);
 }

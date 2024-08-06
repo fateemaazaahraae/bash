@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:41:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 15:00:31 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:39:46 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,25 @@ char    *expand_in_here_doc(char *line)
     return (str);
 }
 
-void here_doc(t_list *tmp)
+void here_doc(t_redir *node)
 {
     char *line;
-    t_limiter *delimiter;
-
-    delimiter = tmp->limiter;
-    while (delimiter)
+    
+    // node->filename = generate_filename();
+    node->filename = "_tmp";
+    node->fd = open(node->filename, O_CREAT | O_TRUNC | O_WRONLY, 0666);
+    while (1)
     {
-        open_pipes(tmp->heredoc_fd);
-        while ((line = readline("> ")) != NULL)
+        line = readline("> ");
+        if (!ft_strcmp(line, node->lim))
         {
-            if (!ft_strcmp(line, delimiter->lim))
-            {
-                free(line);
-                break;
-            }
-            if (ft_strchr(line, '$'))
-                line = expand_in_here_doc(line);
-            ft_putendl_fd(line, tmp->heredoc_fd[1]);
             free(line);
+            break ;
         }
-        dup2(tmp->heredoc_fd[0], STDIN_FILENO);
-        close_pipe(tmp, 1);
-        delimiter = delimiter->next;
+        if (ft_strchr(line, '$'))
+            line = expand_in_here_doc(line);
+        ft_putendl_fd(line, node->fd);
+        free(line);
     }
+    close(node->fd);
 }

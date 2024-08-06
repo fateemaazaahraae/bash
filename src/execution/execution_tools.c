@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:12:30 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 15:48:19 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 16:49:46 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ void    close_pipe(t_list *list, int i)
 {
     if (i == 0)
     {
-        close(list->pipe_fd[0]);
-        close(list->pipe_fd[1]);
+        if (list->pipe_fd[0] != 0)
+            close(list->pipe_fd[0]);
+        if (list->pipe_fd[1] != 1)
+            close(list->pipe_fd[1]);
     }
     else
     {
-        close(list->heredoc_fd[0]);
-        close(list->heredoc_fd[1]);
+        if (list->heredoc_fd[0] != 0)
+            close(list->heredoc_fd[0]);
+        if (list->heredoc_fd[1] != 1)
+            close(list->heredoc_fd[1]);
     }
 }

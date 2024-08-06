@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:55:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 16:34:56 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:21:55 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 # include <stdio.h>
 
 typedef enum s_type{
-	APPEND,
-	INPUT,
-	OUTPUT,
+	INPUT,   // 0
+	OUTPUT,   // 1
+	APPEND,   // 2
+	HERE_DOC   // 3
 }	f_type;
 
 typedef struct s_redir{
 	int fd;
-	char *name;
+	char *lim;
+	char *filename;
 	f_type type;
 	struct	s_redir	*next;
 	

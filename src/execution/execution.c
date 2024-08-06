@@ -6,11 +6,30 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:16:28 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 14:54:44 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:10:50 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
+
+int    execute_cmd(t_list *list)
+{
+    open_pipes(list->pipe_fd);
+    list->pid = fork_process();
+    if (!list->pid)
+    {
+        if (open_files(list))
+            return (0);
+        dup_out_pipe(list);
+        ft_execve(list);
+    }
+    else
+    {
+        dup2(list->pipe_fd[0], STDIN_FILENO);
+        close_pipe(list, 0);
+    }
+    return (0);
+}
 
 void    run_execution(t_list *list)
 {
@@ -21,8 +40,6 @@ void    run_execution(t_list *list)
     {
         if (execute_cmd(tmp))
             break;
-        if (tmp->outfile != 1)
-			close(tmp->outfile);
         tmp = tmp->next;
     }
     tmp = list;

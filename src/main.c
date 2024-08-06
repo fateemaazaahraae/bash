@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/06 12:24:31 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:07:35 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int init_program(char **av, int ac, char **envp)
     global_data = malloc(sizeof(t_global));
     global_data->my_env = get_env(envp);
     global_data->exit_status = 0;
+    global_data->here_doc_nbr = 0;
     global_data->pwd = NULL;
     if (ac != 1)
     {
@@ -62,6 +63,7 @@ int main(int ac, char **av, char **env)
             continue;
         }
         execution(list);
+        global_data->here_doc_nbr = 0;
         // ft_free_struct(&list);
     }
     return (global_data->exit_status);

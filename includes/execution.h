@@ -92,7 +92,7 @@ char *get_cmd_path(char *cmd, char **paths);
 void    ft_execve(t_list *list);
 
 /* --multi_pipe.c-- */
-void here_doc(t_list *list);
+void here_doc(t_redir *node);
 
 /* --execution_tools.c-- */
 void dup_out_pipe(t_list *list);
@@ -114,9 +114,9 @@ int    execute_cmd(t_list *list);
 
 void    ft_expand(int *i, char **str, char *line);
 char    *expand_in_here_doc(char *line);
-void here_doc(t_list *list);
-int check_in(t_redir *infile);
-int check_out(t_redir *outfile);
+// void here_doc(t_list *list);
+int check_in(t_list *list);
+int check_out(t_list *list);
 int open_files(t_list *list);
 void    dup_infile(t_redir *infile);
 void    dup_outfile(t_redir *outfile);

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:55:06 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 13:18:37 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:26:30 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void    dup_outfile(t_redir *outfile)
     out = outfile;
     while (out)
     {
-        if (out->fd == STDOUT_FILENO && !ft_strcmp(out->name, "/dev/stdout")) // it means that name = /dev/stdout
+        if (out->fd == STDOUT_FILENO && !ft_strcmp(out->filename, "/dev/stdout")) // it means that name = /dev/stdout
         {
             out = out->next;
             continue ;
         }
         dup2(out->fd, STDOUT_FILENO);
-        close(out->fd);
+        if (out->fd != STDOUT_FILENO)
+            close(out->fd);
         out = out->next;
     }
 }
