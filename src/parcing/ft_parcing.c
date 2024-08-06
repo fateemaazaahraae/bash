@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parcing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/04 19:33:04 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 13:29:24 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int filtre_1()
     while (global_data->cmd[i])
     {
         if ((global_data->cmd[i] == '|' && global_data->cmd[i + 1] == '\0') || global_data->cmd[0] == '|')
-            return (print_error('s')); 
+            return (print_error('s', global_data->cmd[i])); 
         if (global_data->cmd[i] == '"' && !global_data->s_quote)
             global_data->d_quote = !global_data->d_quote;
         else if (global_data->cmd[i] == '\'' && !global_data->d_quote)
@@ -32,7 +32,7 @@ int filtre_1()
         i++;
     }
     if (global_data->s_quote == true || global_data->d_quote == true)
-        return (print_error('s'));
+        return (print_error('q', 'q'));
     return (0);
 }
 
@@ -118,6 +118,8 @@ t_list *ft_filtre()
     solve_between_quote();
     global_data->cmd = new_cmd();
     if (!global_data->cmd)
+        return (NULL);
+    if (check_synthax())
         return (NULL);
     global_data->cmd = handle_expand();
     global_data->cmd = remove_quotes();

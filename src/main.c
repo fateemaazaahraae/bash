@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/05 09:57:56 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:20:40 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_global *global_data = NULL;
 
 int init_program(char **av, int ac, char **envp)
 {
-    (void)av;
-    (void)envp;
     global_data = malloc(sizeof(t_global));
     global_data->my_env = get_env(envp);
     global_data->exit_status = 0;
@@ -39,7 +37,15 @@ void    ft_handler(int x)
         rl_on_new_line();
         rl_replace_line("", 1);
         rl_redisplay();
+        global_data->exit_status = 130;
     }
+    else if (x == SIGQUIT)
+        return ;
+}
+void ft_after(int num)
+{
+    if (num == SIGINT)
+        global_data->exit_status = 130;
 }
 int main(int ac, char **av, char **env)
 {
@@ -48,8 +54,9 @@ int main(int ac, char **av, char **env)
     init_program(av, ac, env);
     while (1)
     {
-        // signal(SIGINT, &ft_handler);
+        signal(SIGINT, &ft_handler);
         global_data->cmd = readline("\x1b[36mminishell $> \x1b[0m");
+        signal(SIGINT, &ft_after);
         if (!global_data->cmd)
         {
             printf("exittttttttttttt\n");
@@ -57,7 +64,6 @@ int main(int ac, char **av, char **env)
         }
         add_history(global_data->cmd);
         list = ft_filtre();
-        // printf("hello\n");
         if (!list)
         {
             free(global_data->cmd);
