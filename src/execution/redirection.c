@@ -6,32 +6,45 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:55:06 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 15:48:25 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:26:30 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
 
-void dup_out_pipe(t_list *list)
+void    dup_outfile(t_redir *outfile)
+{
+    t_redir *out;
+
+    out = outfile;
+    while (out)
+    {
+        if (out->fd == STDOUT_FILENO && !ft_strcmp(out->filename, "/dev/stdout")) // it means that name = /dev/stdout
+        {
+            out = out->next;
+            continue ;
+        }
+        dup2(out->fd, STDOUT_FILENO);
+        if (out->fd != STDOUT_FILENO)
+            close(out->fd);
+        out = out->next;
+    }
+}
+
+void    dup_out_pipe(t_list *list)
 {
     if (list->next)
     {
-        if (list->outfile > 1)
-        {
-            dup2(list->outfile, STDOUT_FILENO);
-            close(list->outfile);
-        }
+        if (list->out)
+            dup_outfile(list->out);
         else
         {
             dup2(list->pipe_fd[1], STDOUT_FILENO);
             close_pipe(list, 0);
         }
     }
-    else if (list->outfile > 1)
-    {
-        dup2(list->outfile, STDOUT_FILENO);
-        close(list->outfile);
-    }
+    else if (list->out)
+            dup_outfile(list->out);
     if (is_builtins(list->cmd_args[0]))
     {
         execute_builtins(list);

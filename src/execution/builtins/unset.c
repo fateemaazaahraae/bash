@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:41:31 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/07/21 16:13:29 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 11:20:14 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,47 @@
 
 void    unset_var(t_env **env, char *key)
 {
-    t_env   *current;
+    t_env   *deleted_one;
     t_env   *previous;
 
-    current = *env;
-    previous = NULL;
-    while (current)
+    if (!ft_strcmp((*env)->key, key))
     {
-        if (!ft_strcmp(current->key, key))
+        deleted_one = *env;
+        *env = (*env)->next;
+        ft_lstdelone2(deleted_one);
+        return ;
+    }
+    deleted_one = *env;
+    while (deleted_one->next)
+    {
+        previous = deleted_one;
+        if (!ft_strcmp(deleted_one->next->key, key))
         {
-            if (previous)
-                previous->next = current->next;
-            else
-                *env = current->next;
-            free(current->key);
-            free(current->value);
-            free(current);
-            return ;
+            deleted_one = deleted_one->next;
+            previous->next = deleted_one->next;
+            ft_lstdelone2(deleted_one);
+            break;
         }
-        previous = current;
-        current = current->next;
+        deleted_one = deleted_one->next;
     }
 }
 
-void    unset(char **args, t_env *env)
+void    unset(char **args)
 {
-    int i;
+    int     i;
 
     i = 1;
     if (!args[i])
         return ;
     while (args[i])
     {
-        unset_var(&env, args[i]);
+        if (!ft_is_alphanum(args[i]))
+        {
+            global_data->exit_status = 1;
+            i++;
+            continue ;
+        }
+        unset_var(&global_data->my_env, args[i]);
         i++;
     }
 }

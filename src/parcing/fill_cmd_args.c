@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:38:00 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 19:38:25 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:13:53 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ void    fill_cmd_args(t_list *list)
             printf("Error while allocating tmp->cmd_args\n");
             return ;
         }
-        tmp->infile = 0;
-        tmp->outfile = 1;
         handle_args_and_redir(tmp);
         tmp = tmp->next;
     }
