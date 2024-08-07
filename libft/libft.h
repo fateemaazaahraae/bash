@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:55:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 19:21:55 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 12:34:15 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ typedef struct s_list
 	char			*content;
 	char 			**mini_tokens;
 	char 			**cmd_args;
-	t_redir 		*out;
-	t_redir 		*in;
-	int				outfile;
-	int				infile;
+	t_redir 		*files;
 	int				pipe_fd[2];
 	pid_t			pid;
 	t_limiter		*limiter;

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:35:04 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 12:13:13 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 14:53:59 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void    exit_func(t_error err, char *cmd)
     }
     if (err == CMD_NOT_FOUND)
     {
+        global_data->exit_status = 127;
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": command not found", STDERR_FILENO);
@@ -38,7 +39,10 @@ void    exit_func(t_error err, char *cmd)
         ft_putendl_fd("minishell: cd: HOME not set", STDERR_FILENO);
     }
     if (err == CD_TOO_ARGS)
+    {
+        global_data->exit_status = 1;
         ft_putendl_fd("minishell: cd : too many arguments", STDERR_FILENO);
+    }
     if (err == OLDPWD_NOT_SET)
         ft_putendl_fd("minishell: cd: OLDPWD not set", STDERR_FILENO);
     if (err == CHDIR)
@@ -63,12 +67,14 @@ void    exit_func(t_error err, char *cmd)
     }
     if (err == NO_SUCH_FILE)
     {
+        global_data->exit_status = 1;
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": No such file or directory", STDERR_FILENO);
     }
     if (err == PERR_DENIED)
     {
+        global_data->exit_status = 1;
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": Permission denied", STDERR_FILENO);

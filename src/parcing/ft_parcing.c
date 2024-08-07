@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/06 20:27:01 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 14:51:22 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_list *ft_filtre()
     if (filtre_1())
         return (NULL);
     solve_between_quote();
+    // printf("---->%s\n", global_data->cmd);
     global_data->cmd = new_cmd();
     if (!global_data->cmd)
         return (NULL);

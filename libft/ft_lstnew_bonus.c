@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 17:36:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 16:36:34 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 13:31:53 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ t_list	*ft_lstnew(char *content)
 	node = malloc(sizeof(t_list));
 	if (!node)
 		return (NULL);
-	node->content = ft_strdup(content);
-	// printf("node->content %s\n", node->content);
-	// node->out = NULL;
-	// node->in = NULL;
-	// node->limiter = NULL;
+	node->content = content;
 	node->next = NULL;
 	return (node);
 }
