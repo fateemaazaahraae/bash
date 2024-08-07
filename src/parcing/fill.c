@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:49:00 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/07 15:41:57 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:57:13 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void fill_mini_tokens(t_list *list)
     while (tmp)
     {
         tmp->mini_tokens = ft_split(tmp->content, ' ');
-        tmp->out = NULL;
-        tmp->in = NULL;
+        tmp->files = NULL;
         tmp = tmp->next;
     }
 }
@@ -35,19 +34,19 @@ t_list    *ft_fill_tokens()
     char **str;
     t_list *list;
     t_list  *new;
-    int     i;
+    int     i; 
 
-    list = NULL;
-    
+    list = NULL;    
     str = ft_split(global_data->cmd, '|');
-    i = -1;
-    while (str[++i])
+    i = 0;
+    while (str[i])
     {
         new = ft_lstnew(str[i]);
         if (!new)
             printf("Failed to create the node\n");
         ft_lstadd_back(&list, new);
         // free(str[i]);
+        i++;
     }
     free(str);
     fill_mini_tokens(list);
@@ -55,6 +54,24 @@ t_list    *ft_fill_tokens()
     fill_cmd_args(list);
     return_special_char(list);
     return (list);
+}
+
+void    return_from_files(t_redir *files)
+{
+    t_redir *f;
+    int     i;
+
+    f = files;
+    while (f)
+    {
+        i = -1;
+        while (f->filename[++i])
+        {
+            if (is_special(f->filename[i], 0))
+                f->filename[i] *= -1;
+        }
+        f = f->next;
+    }
 }
 
 /* this function return the special char to there initial value cuz we multiple it by -1*/

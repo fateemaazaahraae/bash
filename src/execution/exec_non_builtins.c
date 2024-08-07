@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:10:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 18:09:36 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 14:53:47 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void    ft_execve(t_list *list)
     cmd_path = get_cmd_path(list->cmd_args[0], paths);
     if (!cmd_path)
     {
-        printf("minishelllll: %s: command not found\n", list->cmd_args[0]);
+        exit_func(CMD_NOT_FOUND, list->cmd_args[0]);
         free(all_path);
         free_2D(paths);
         exit (127);

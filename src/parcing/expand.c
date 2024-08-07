@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/07 15:14:34 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:46:17 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void    expand(int *i, char **str)
     if (global_data->cmd[*i] == '?')
     {
         *str = ft_strjoin(*str, ft_itoa(global_data->exit_status));
-        (*i)++;
         return ;
     }
     start = *i;
@@ -78,7 +77,7 @@ char *handle_expand()
     {
         if (global_data->cmd[i] == '\'')
             join_single_quote(&i, &str);
-        else if (global_data->cmd[i] == '$' && global_data->cmd[i + 1] && global_data->cmd[i + 1] != ' ')
+        else if (global_data->cmd[i] == '$' && (ft_isalnum(global_data->cmd[i + 1]) || global_data->cmd[i + 1] == '?'))
         {
             i++;
             expand(&i, &str);

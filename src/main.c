@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/07 15:39:02 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:03:30 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void ft_after(int num)
 }
 int main(int ac, char **av, char **env)
 {
-    int i;
     t_list  *list;
 
     init_program(av, ac, env);
@@ -65,17 +64,30 @@ int main(int ac, char **av, char **env)
         }
         add_history(global_data->cmd);
         list = ft_filtre();
-        i = -1;
-        while(list->mini_tokens[++i])
-        {
-            printf("%d---%s\n", i, list->cmd_args[i]);
-        }
+        // while(list)
+        // {
+        //     for (int i  = 0; list->cmd_args[i]; i++)
+        //         printf("%d---%s\n", i, list->cmd_args[i]);
+        //     while (list->files)
+        //     {
+        //         if (list->files->type == INPUT)
+        //             printf("input --> %s\n", list->files->filename);
+        //         if (list->files->type == OUTPUT)
+        //             printf("output --> %s\n", list->files->filename);
+        //         if (list->files->type == APPEND)
+        //             printf("append --> %s\n", list->files->filename);
+        //         if (list->files->type == HERE_DOC)
+        //             printf("here_doc --> %s\n", list->files->filename);
+        //         list->files = list->files->next;
+        //     }
+        //     list = list->next;
+        // }
         if (!list)
         {
             free(global_data->cmd);
             continue;
         }
-        // execution(list);
+        execution(list);
         global_data->here_doc_nbr = 0;
         // ft_free_struct(&list);
     }

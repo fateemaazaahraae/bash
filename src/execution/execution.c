@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:16:28 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 20:22:47 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 13:35:46 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ int    execute_cmd(t_list *list)
     if (!list->pid)
     {
         if (open_files(list))
-            return (0);
+            exit (1);
         dup_out_pipe(list);
-        ft_execve(list);
+        if (is_builtins(list->cmd_args[0]))
+        {
+            execute_builtins(list);
+            exit(0);
+        }
+        else
+            ft_execve(list);
     }
     else
     {
@@ -39,7 +45,10 @@ void    run_execution(t_list *list)
     while (tmp)
     {
         if (execute_cmd(tmp))
-            break;
+        {
+            tmp = tmp->next;
+            continue ;
+        }
         tmp = tmp->next;
     }
     tmp = list;
@@ -60,8 +69,11 @@ void    execution(t_list *list)
     if (ft_lstsize(list) == 1 && is_builtins(list->cmd_args[0]))
     {
         if (open_files(list))
+        {
+            restore_stdio(stdin, stdout);
             return ;
-        dup_outfile(list->out);
+        }
+        // dup_outfile(list->files);
         execute_builtins(list);
         restore_stdio(stdin, stdout);
         return ;

@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/07 15:29:58 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:57:58 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ char *new_cmd()
 /*this function will filtre our input cmd to check syntax error*/
 t_list *ft_filtre()
 {
-    /*strtrim will remove spaces in the start and the end of the string*/
     global_data->cmd = ft_strtrim(global_data->cmd, " \t");
     if (filtre_1())
         return (NULL);
@@ -122,7 +121,5 @@ t_list *ft_filtre()
     if (check_synthax())
         return (NULL);
     global_data->cmd = handle_expand();
-    printf("PPPPPPPPPPPPPPPPPPPPPP\n");
-    // global_data->cmd = remove_quotes();
     return (ft_fill_tokens());
 }

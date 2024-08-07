@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:55:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 19:21:55 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 15:50:20 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,14 @@ typedef struct s_limiter
 
 typedef struct s_list
 {
-	char			*content;
-	char 			**mini_tokens;
+	char			*content;//to free
+	char 			**mini_tokens;//to free
 	char 			**cmd_args;
-	t_redir 		*out;
-	t_redir 		*in;
-	int				outfile;
-	int				infile;
+	t_redir 		*files;
 	int				pipe_fd[2];
 	pid_t			pid;
-	t_limiter		*limiter;
-	int				heredoc_fd[2];
+	t_limiter		*limiter;//1
+	int				heredoc_fd[2];//1
 	struct s_list	*next;
 }			t_list;
 
