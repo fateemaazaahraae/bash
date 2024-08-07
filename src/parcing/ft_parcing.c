@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/07 10:40:27 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:29:58 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ t_list *ft_filtre()
     if (check_synthax())
         return (NULL);
     global_data->cmd = handle_expand();
+    printf("PPPPPPPPPPPPPPPPPPPPPP\n");
     // global_data->cmd = remove_quotes();
     return (ft_fill_tokens());
 }

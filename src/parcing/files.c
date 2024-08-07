@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:17:20 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 19:44:06 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:07:20 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
     list of limiters else so we have input or output file*/
 void    handle_here_doc(t_list *tmp, int i)
 {
-    t_limiter *new;
+    t_redir *new;
 
-    if (ft_lstsize_limiter(tmp->limiter) >= 16)
+    if (global_data->here_doc_nbr > 16)
     {
         printf("minishell: maximum here-document count exceeded\n");
+        global_data->exit_status = 2;
         exit(2);
     }
     if (!ft_strcmp(tmp->mini_tokens[i], "<<"))
     {
-        new = ft_lstnew_limiter(tmp->mini_tokens[i + 1]);
-        ft_lstadd_back_limiter(&tmp->limiter, new);
+        new = ft_lstnew_redir(tmp->mini_tokens[i + 1], 3); // HERE_DOC 3
+        ft_lstadd_back_redir(&tmp->in, new);
+        global_data->here_doc_nbr++;
     }
     else if (((tmp->mini_tokens[i][0] == '>' || tmp->mini_tokens[i][0] == '<') && !tmp->mini_tokens[i][1]) || !ft_strcmp(tmp->mini_tokens[i], ">>"))
         handle_input_output(tmp, tmp->mini_tokens, i);
@@ -42,14 +44,14 @@ void    handle_input_output(t_list *tmp, char **args, int i)
     if (args[i][0] == '>')
     {
         if ((args[i][0] == '>' && !args[i][1]))
-            new_redir = ft_lstnew_redir(args[i + 1], 1); // OUTPUT >
+            new_redir = ft_lstnew_redir(args[i + 1], 1); // OUTPUT >  1
         else
-            new_redir = ft_lstnew_redir(args[i + 1], 2); // APPEND >>
+            new_redir = ft_lstnew_redir(args[i + 1], 2); // APPEND >>   2
         ft_lstadd_back_redir(&tmp->out, new_redir);
     }
     else if (args[i][0] == '<' && !args[i][1])
     {
-        new_redir = ft_lstnew_redir(args[i + 1], 3); // INPUT <
+        new_redir = ft_lstnew_redir(args[i + 1], 0); // INPUT <  0
         ft_lstadd_back_redir(&tmp->in, new_redir);
     }
 }

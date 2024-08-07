@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:02:17 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/04 19:28:57 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 12:05:55 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,10 @@ void    handle_here_doc_expand(int *i, char **str)
     end = *i;
     *str = ft_strjoin(*str, ft_substr(global_data->cmd, start, end - start));
 }
+
+void handle_ambigous(int start, int end, char **str)
+{
+    if ((global_data->cmd[start - 2] == '>' || global_data->cmd[start - 2] == '<') && global_data->cmd[start - 3] != '<')
+        *str = ft_strjoin(*str, ft_substr(global_data->cmd, start, end - start));
+}
+

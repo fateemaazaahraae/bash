@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:41:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 18:49:06 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:39:46 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,25 @@ char    *expand_in_here_doc(char *line)
     return (str);
 }
 
-void here_doc(t_list *tmp)
+void here_doc(t_redir *node)
 {
     char *line;
-    t_list *list;
-
-    list = tmp;
-    while (list->limiter)
+    
+    // node->filename = generate_filename();
+    node->filename = "_tmp";
+    node->fd = open(node->filename, O_CREAT | O_TRUNC | O_WRONLY, 0666);
+    while (1)
     {
-        open_pipes(list->heredoc_fd);
-        while ((line = readline("> ")) != NULL)
+        line = readline("> ");
+        if (!ft_strcmp(line, node->lim))
         {
-            if (!ft_strcmp(line, list->limiter->lim))
-            {
-                free(line);
-                break;
-            }
-            if (ft_strchr(line, '$'))
-                line = expand_in_here_doc(line);
-            ft_putendl_fd(line, list->heredoc_fd[1]);
             free(line);
+            break ;
         }
-        if (list->limiter->next)
-            close_pipe(list, 1);
-        list->limiter = list->limiter->next;
+        if (ft_strchr(line, '$'))
+            line = expand_in_here_doc(line);
+        ft_putendl_fd(line, node->fd);
+        free(line);
     }
-    dup2(list->heredoc_fd[0], STDIN_FILENO);
-    close_pipe(list, 1);
+    close(node->fd);
 }

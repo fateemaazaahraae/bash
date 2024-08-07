@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:52:08 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/04 15:10:59 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/06 11:03:47 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ int is_builtins(char *command)
 
 void    execute_builtins(t_list *list)
 {
-    if (list->outfile > 1)
-    {
-        dup2(list->outfile, STDOUT_FILENO);
-        close(list->outfile);
-    }
     if (ft_strcmp(list->cmd_args[0], "cd") == 0) // done
         cd(list->cmd_args);
     else if (ft_strcmp(list->cmd_args[0], "echo") == 0) // done
@@ -39,7 +34,7 @@ void    execute_builtins(t_list *list)
     else if (ft_strcmp(list->cmd_args[0], "export") == 0)
         export(list->cmd_args);
     else if (ft_strcmp(list->cmd_args[0], "unset") == 0)
-        unset(list->cmd_args, global_data->my_env);
+        unset(list->cmd_args);
     else if (ft_strcmp(list->cmd_args[0], "env") == 0) // done
         env(list->cmd_args);
     else if (ft_strcmp(list->cmd_args[0], "exit") == 0)
