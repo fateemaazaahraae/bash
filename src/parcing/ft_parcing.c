@@ -6,7 +6,7 @@
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:28:11 by ali-akouhar       #+#    #+#             */
-/*   Updated: 2024/08/06 13:29:24 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:40:27 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int is_special(char c, int flag)
     int i;
     char *check;
 
-    check = " <|>;&*(){}[]\t";
+    check = " <|>;&*(){}#[]\t";
     if (flag == 1 && c == '"')
         return (1);
     else if (flag == 2 && c == '\'')
@@ -122,6 +122,6 @@ t_list *ft_filtre()
     if (check_synthax())
         return (NULL);
     global_data->cmd = handle_expand();
-    global_data->cmd = remove_quotes();
+    // global_data->cmd = remove_quotes();
     return (ft_fill_tokens());
 }
