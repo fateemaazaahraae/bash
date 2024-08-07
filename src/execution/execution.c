@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:16:28 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 13:35:46 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:23:10 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,7 @@ void    run_execution(t_list *list)
         }
         tmp = tmp->next;
     }
-    tmp = list;
-    while (tmp)
-    {
-        if (tmp->pid >= 0)
-            waitpid(tmp->pid, &global_data->exit_status, 0);
-        tmp = tmp->next;
-    }
+    wait_child(list);
 }
 
 void    execution(t_list *list)
@@ -73,7 +67,6 @@ void    execution(t_list *list)
             restore_stdio(stdin, stdout);
             return ;
         }
-        // dup_outfile(list->files);
         execute_builtins(list);
         restore_stdio(stdin, stdout);
         return ;

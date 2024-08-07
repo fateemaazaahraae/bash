@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/07 15:46:17 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:32:28 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void    handle_quote(char *token, int *j, char **str)
     int start;
     int end;
 
+    (*j)++;
     start = *j;
     while (token[*j] && token[*j] != '\'' && token[*j] != '"')
         (*j)++;
@@ -102,29 +103,31 @@ void    handle_quote(char *token, int *j, char **str)
 }
 
 /* after expand we remove the master quote ex : echo "'hello'" ----> echo 'hello'*/
-void    remove_quotes(t_list *list)
+void    remove_quotes(t_list *tmp)
 {
     int     i;
     int     j;
     char    *str;
+    t_list  *list;
 
-    i = -1;
-    while (list->mini_tokens[++i])
+    list = tmp;
+    while (list)
     {
-        j = -1;
-        str = NULL;
-        while (list->mini_tokens[i][++j])
+        i = -1;
+        while (list->mini_tokens[++i])
         {
-            if (list->mini_tokens[i][j] == '\'' || list->mini_tokens[i][j] == '"')
+            j = -1;
+            str = NULL;
+            while (list->mini_tokens[i][++j])
             {
-                j++;
-                handle_quote(list->mini_tokens[i], &j, &str);
+                if (list->mini_tokens[i][j] == '\'' || list->mini_tokens[i][j] == '"')
+                    handle_quote(list->mini_tokens[i], &j, &str);
+                else
+                    str = ft_strjoin_char(str, list->mini_tokens[i][j]);
             }
-            else
-                str = ft_strjoin_char(str, list->mini_tokens[i][j]);
+            free(list->mini_tokens[i]);
+            list->mini_tokens[i] = str;
         }
-        free(list->mini_tokens[i]);
-        list->mini_tokens[i] = str;
+        list = list->next;
     }
-    return ;
 }

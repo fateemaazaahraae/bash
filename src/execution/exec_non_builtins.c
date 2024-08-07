@@ -6,29 +6,53 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:10:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 14:53:47 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 20:00:00 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/minishell.h"
+
+int    check_existence(char *cmd)
+{
+    DIR *dir;
+
+    dir = opendir(cmd);
+    if (dir)
+    {
+        global_data->exit_status = 126;
+        exit_func(DIR_ERR, cmd);
+        closedir(dir);
+        exit(global_data->exit_status);
+    }
+    if (access(cmd, F_OK) == -1)
+    {
+        exit_func(NO_SUCH_FILE, cmd);
+        exit(global_data->exit_status);
+    }
+    if (access(cmd, X_OK) == -1)
+    {
+        exit_func(PERR_DENIED, cmd);
+        exit(global_data->exit_status);
+    }
+    return (0);
+}
 
 char *get_cmd_path(char *cmd, char **paths)
 {
     int i;
     char *cmd_path;
 
-    if (!cmd || !paths)
+    if (!cmd)
         return (NULL);
-    if (cmd[0] == '.' || cmd[0] == '/')
-	{
-		if (access(cmd, X_OK) == 0)
-			return (cmd);
-		else
-        {
-			printf("minishell : %s: No such file or directory\n", cmd);
-            exit(127);
-        }
-	}
+    if (!paths)
+    {
+        exit_func(NO_SUCH_FILE, cmd);
+        global_data->exit_status = 127;
+        exit(global_data->exit_status);
+    }
+    if (ft_strchr(cmd, '/'))
+        if (!check_existence(cmd))
+            return (cmd);
     i = -1;
     while (paths[++i])
     {
@@ -61,6 +85,7 @@ void    ft_execve(t_list *list)
     char **paths;
     char *cmd_path;
 
+    global_data->exit_status = 0;
     all_path = find_path(global_data->my_env);
     paths = ft_split(all_path, ':');
     cmd_path = get_cmd_path(list->cmd_args[0], paths);
@@ -69,9 +94,8 @@ void    ft_execve(t_list *list)
         exit_func(CMD_NOT_FOUND, list->cmd_args[0]);
         free(all_path);
         free_2D(paths);
-        exit (127);
+        exit (global_data->exit_status);
     }
-    // printf("allaho akbar\n");
     execve(cmd_path, list->cmd_args, env_to_2D(global_data->my_env));
     exit_func(EXECVE, NULL);
 }

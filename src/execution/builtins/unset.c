@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:41:31 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 11:20:14 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:53:04 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,19 @@ void    unset(char **args)
     i = 1;
     if (!args[i])
         return ;
+    
     while (args[i])
     {
+        if (args[i][0] == '_' && !args[i][1])
+        {
+            i++;
+            continue;
+        }
         if (!ft_is_alphanum(args[i]))
         {
             global_data->exit_status = 1;
             i++;
-            continue ;
+            continue;
         }
         unset_var(&global_data->my_env, args[i]);
         i++;

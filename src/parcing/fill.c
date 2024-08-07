@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:49:00 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/07 15:57:13 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:28:32 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void    return_from_files(t_redir *files)
         i = -1;
         while (f->filename[++i])
         {
-            if (is_special(f->filename[i], 0))
+            if (is_special(f->filename[i] * (-1), 0))
                 f->filename[i] *= -1;
         }
         f = f->next;

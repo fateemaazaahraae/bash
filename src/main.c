@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:40:49 by tiima             #+#    #+#             */
-/*   Updated: 2024/08/07 16:03:30 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/07 20:23:56 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int ac, char **av, char **env)
     while (1)
     {
         signal(SIGINT, &ft_handler);
-        global_data->cmd = readline("\x1b[36mminishell $> \x1b[0m");
+        global_data->cmd = readline("minishell$> ");
         signal(SIGINT, &ft_after);
         if (!global_data->cmd)
         {
@@ -64,25 +64,7 @@ int main(int ac, char **av, char **env)
         }
         add_history(global_data->cmd);
         list = ft_filtre();
-        // while(list)
-        // {
-        //     for (int i  = 0; list->cmd_args[i]; i++)
-        //         printf("%d---%s\n", i, list->cmd_args[i]);
-        //     while (list->files)
-        //     {
-        //         if (list->files->type == INPUT)
-        //             printf("input --> %s\n", list->files->filename);
-        //         if (list->files->type == OUTPUT)
-        //             printf("output --> %s\n", list->files->filename);
-        //         if (list->files->type == APPEND)
-        //             printf("append --> %s\n", list->files->filename);
-        //         if (list->files->type == HERE_DOC)
-        //             printf("here_doc --> %s\n", list->files->filename);
-        //         list->files = list->files->next;
-        //     }
-        //     list = list->next;
-        // }
-        if (!list)
+        if (!list || !global_data->cmd)
         {
             free(global_data->cmd);
             continue;

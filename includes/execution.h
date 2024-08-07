@@ -13,6 +13,9 @@
 # include "../libft/libft.h"
 # include "env.h"
 
+# define VAL_SIGINT 130
+# define VAL_SIGQUIT 131
+
 typedef enum s_error
 {
     PIPE_ERR,
@@ -29,7 +32,8 @@ typedef enum s_error
     EXPORT_ERR,
     NO_SUCH_FILE,
     PERR_DENIED,
-    AMBIGUOUS
+    AMBIGUOUS,
+    DIR_ERR
 }   t_error;
 
 
@@ -98,6 +102,8 @@ void here_doc(t_redir *node);
 void dup_out_pipe(t_list *list);
 void save_stdio(int *saved_stdin, int *saved_stdout);
 void restore_stdio(int saved_stdin, int saved_stdout);
+void    wait_child(t_list *list);
+
 
 
 /* --ft_free.c-- */

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:35:04 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 14:53:59 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/07 20:17:21 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ void    exit_func(t_error err, char *cmd)
     }
     if (err == NO_SUCH_FILE)
     {
-        global_data->exit_status = 1;
+        global_data->exit_status = 127;
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": No such file or directory", STDERR_FILENO);
     }
     if (err == PERR_DENIED)
     {
-        global_data->exit_status = 1;
+        global_data->exit_status = 126;
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": Permission denied", STDERR_FILENO);
@@ -84,5 +84,11 @@ void    exit_func(t_error err, char *cmd)
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": ambiguous redirect", STDERR_FILENO);
+    }
+    if (err == DIR_ERR)
+    {
+        ft_putstr_fd("minishell: ", STDERR_FILENO);
+        ft_putstr_fd(cmd, STDERR_FILENO);
+        ft_putendl_fd(": Is a directory", STDERR_FILENO);
     }
 }
