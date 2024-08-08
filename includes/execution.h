@@ -33,7 +33,8 @@ typedef enum s_error
     NO_SUCH_FILE,
     PERR_DENIED,
     AMBIGUOUS,
-    DIR_ERR
+    DIR_ERR,
+    EXIT_TOO_ARG
 }   t_error;
 
 

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 12:52:08 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 20:19:42 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 14:38:04 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void    execute_builtins(t_list *list)
     else if (ft_strcmp(list->cmd_args[0], "env") == 0) // done
         env(list->cmd_args);
     else if (ft_strcmp(list->cmd_args[0], "exit") == 0)
-        exit(123);
+        ft_exit(list->cmd_args);
 }
