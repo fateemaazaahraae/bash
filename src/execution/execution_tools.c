@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:12:30 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 20:12:16 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 08:40:55 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ void    close_pipe(t_list *list, int i)
 void wait_child(t_list *list)
 {
     int status;
+    t_list *last;
 
-    waitpid(list->pid, &status, 0);
+    last = ft_lstlast(list);
+    waitpid(last->pid, &status, 0);
     if (WIFEXITED(status))
         global_data->exit_status = WEXITSTATUS(status);
     else if (WIFSIGNALED(status))

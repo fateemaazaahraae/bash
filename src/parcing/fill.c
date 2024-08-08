@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:49:00 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/07 16:28:32 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 08:58:22 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_list    *ft_fill_tokens()
     }
     free(str);
     fill_mini_tokens(list);
+    printf("$$$$$$$$$$$$$$$$$\n");
     remove_quotes(list);
     fill_cmd_args(list);
     return_special_char(list);

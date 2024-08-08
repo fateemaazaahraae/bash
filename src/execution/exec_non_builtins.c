@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:10:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 20:00:00 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 08:48:03 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int    check_existence(char *cmd)
     if (access(cmd, F_OK) == -1)
     {
         exit_func(NO_SUCH_FILE, cmd);
+        global_data->exit_status = 127;
         exit(global_data->exit_status);
     }
     if (access(cmd, X_OK) == -1)

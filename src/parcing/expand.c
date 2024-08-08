@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/07 16:32:28 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 08:54:34 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char *handle_expand()
     char *str;
 
     i = -1;
-    str = NULL;
+    str = ft_strdup("");
     while (global_data->cmd[++i])
     {
         if (global_data->cmd[i] == '\'')
