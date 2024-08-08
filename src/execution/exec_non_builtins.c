@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:10:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/08 08:48:03 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 12:50:49 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,17 @@ void    ft_execve(t_list *list)
 {
     char *all_path;
     char **paths;
+    char **cmd_args;
     char *cmd_path;
 
     global_data->exit_status = 0;
     all_path = find_path(global_data->my_env);
     paths = ft_split(all_path, ':');
-    cmd_path = get_cmd_path(list->cmd_args[0], paths);
+    if (ft_strchr(list->cmd_args[0], '\n'))
+        cmd_args = ft_split(list->cmd_args[0], '\n');
+    else
+        cmd_args = list->cmd_args;
+    cmd_path = get_cmd_path(cmd_args[0], paths);
     if (!cmd_path)
     {
         exit_func(CMD_NOT_FOUND, list->cmd_args[0]);
@@ -97,7 +102,7 @@ void    ft_execve(t_list *list)
         free_2D(paths);
         exit (global_data->exit_status);
     }
-    execve(cmd_path, list->cmd_args, env_to_2D(global_data->my_env));
+    execve(cmd_path, cmd_args, env_to_2D(global_data->my_env));
     exit_func(EXECVE, NULL);
 }
 
