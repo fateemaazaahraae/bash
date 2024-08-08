@@ -6,9 +6,11 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:17:20 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 13:34:45 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 17:26:34 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# include "../../includes/minishell.h"
 
 # include "../../includes/minishell.h"
 

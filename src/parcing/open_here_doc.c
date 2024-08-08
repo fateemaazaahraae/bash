@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 15:41:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/06 19:39:46 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 18:54:06 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char    *expand_in_here_doc(char *line)
 
 void here_doc(t_redir *node)
 {
-    char *line;
+    char        *line;
     
     // node->filename = generate_filename();
     node->filename = "_tmp";
@@ -56,12 +56,14 @@ void here_doc(t_redir *node)
     while (1)
     {
         line = readline("> ");
+        if (!line)
+            break;
         if (!ft_strcmp(line, node->lim))
         {
             free(line);
             break ;
         }
-        if (ft_strchr(line, '$'))
+        if (ft_strchr(line, '$') && !node->lim_flag)
             line = expand_in_here_doc(line);
         ft_putendl_fd(line, node->fd);
         free(line);

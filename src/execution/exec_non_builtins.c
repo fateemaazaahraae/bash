@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:10:58 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/08 12:50:49 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 18:43:52 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char *get_cmd_path(char *cmd, char **paths)
     int i;
     char *cmd_path;
 
-    if (!cmd)
+    if (!cmd || !cmd[0])
         return (NULL);
     if (!paths)
     {

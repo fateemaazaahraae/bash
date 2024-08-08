@@ -41,11 +41,6 @@ t_redir	*ft_lstnew_redir(char *name, int flag);
 void ft_lstclear_redir(t_redir **lst);
 int	ft_lstsize_redir(t_redir *redir);
 
-void ft_lstclear_limiter(t_limiter **lst);
-t_limiter	*ft_lstnew_limiter(char *name);
-t_limiter	*ft_lstlast_limiter(t_limiter *limiter);
-void ft_lstadd_back_limiter(t_limiter **limiter, t_limiter *new);
-int	ft_lstsize_limiter(t_limiter *lim);
 void    expand(int *i, char **str);
 void    join_single_quote(int *i, char **str);
 char *handle_expand();
@@ -56,6 +51,7 @@ int init_program(char **av, int ac, char **envp);
 int is_special(char c, int flag);
 void solve_here_doc(int *i, char **str);
 void    handle_ambigous(int start, int end, char **str);
+char *remove_quote_from_lim(char *name, int *lim_flag);
 
 
 #endif

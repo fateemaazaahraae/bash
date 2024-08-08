@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 09:54:23 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 14:20:29 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 16:48:06 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void    ft_free_struct(t_list **list)
     {
         free_2D((*list)->mini_tokens);
         free_2D((*list)->cmd_args);
-        free((*list)->limiter);
         *list = (*list)->next;
     }
     ft_lstclear2(&((*list)));

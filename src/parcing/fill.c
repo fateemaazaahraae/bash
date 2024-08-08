@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 14:49:00 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/08 12:46:37 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 18:14:34 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ t_list    *ft_fill_tokens()
         if (!new)
             printf("Failed to create the node\n");
         ft_lstadd_back(&list, new);
-        // free(str[i]);
         i++;
     }
     free(str);
     fill_mini_tokens(list);
-    // printf("$$$$$$$$$$$$$$$$$\n");
     remove_quotes(list);
     fill_cmd_args(list);
     return_special_char(list);
@@ -68,7 +66,7 @@ void    return_from_files(t_redir *files)
         i = -1;
         while (f->filename[++i])
         {
-            if (is_special(f->filename[i] * (-1), 0))
+            if (is_special(f->filename[i] * (-1), 0) || f->filename[i] * (-1) == '\'' || f->filename[i] * (-1) == '"')
                 f->filename[i] *= -1;
         }
         f = f->next;

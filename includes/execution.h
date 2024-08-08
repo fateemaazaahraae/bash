@@ -34,7 +34,8 @@ typedef enum s_error
     PERR_DENIED,
     AMBIGUOUS,
     DIR_ERR,
-    EXIT_TOO_ARG
+    EXIT_TOO_ARG,
+    NUMERIC_ARGS
 }   t_error;
 
 
@@ -98,6 +99,8 @@ void    ft_execve(t_list *list);
 
 /* --multi_pipe.c-- */
 void here_doc(t_redir *node);
+// void here_doc(t_redir *node, int flag);
+
 
 /* --execution_tools.c-- */
 void dup_out_pipe(t_list *list);
@@ -112,7 +115,7 @@ void    ft_free_struct(t_list **list);
 void    free_2D(char **str);
 void    ft_lstclear2(t_list **lst);
 
-void    close_pipe(t_list *list, int i);
+void    close_pipe(t_list *list);
 void    exit_func(t_error err, char *cmd);
 void    execution(t_list *list);
 void    run_execution(t_list *list);
@@ -128,6 +131,8 @@ int open_files(t_list *list);
 void    dup_infile(t_redir *infile);
 void    dup_outfile(t_redir *outfile);
 int	ft_is_alphanum(char *str);
+void    ft_exit(char **args);
+int len_args(char **args);
 
 
 #endif

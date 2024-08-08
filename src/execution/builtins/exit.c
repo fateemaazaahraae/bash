@@ -6,11 +6,29 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:30:57 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/08 14:45:19 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 15:17:02 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../../includes/minishell.h"
+
+int ft_isnumeric(char *str)
+{
+    int i;
+
+    if (!str || !*str)
+        return (0);
+    i = 0;
+    if (str[i] == '-' || str[i] == '+')
+        i++;
+    while (str[i])
+    {
+        if (!ft_isdigit(str[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
 
 int len_args(char **args)
 {
@@ -22,19 +40,27 @@ int len_args(char **args)
     return (i);
 }
 
-void    ft_exit(char **args)
+void ft_exit(char **args)
 {
     int count;
+    int exit_code;
 
-    ft_putendl_fd("exit", STDERR_FILENO);
+    printf("exit\n");    
     if (!args[1])
         exit(global_data->exit_status);
-    else
+    count = len_args(args);
+    if (!ft_isnumeric(args[1])) 
     {
-        count = len_args(args);
-        if (count > 2 && ft_isdigit(ft_atoi(args[1])))
-        {
-            exit_func()
-        }
+        exit_func(NUMERIC_ARGS, args[1]);
+        exit(2);
     }
+    exit_code = ft_atoi(args[1]);
+    if (count > 2)
+    {
+        exit_func(EXIT_TOO_ARG, NULL);
+        global_data->exit_status = 1;
+        return;
+    }
+    global_data->exit_status = exit_code;
+    exit(exit_code);
 }

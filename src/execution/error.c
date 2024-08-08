@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:35:04 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/08 08:46:23 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 14:56:57 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,13 @@ void    exit_func(t_error err, char *cmd)
         ft_putstr_fd("minishell: ", STDERR_FILENO);
         ft_putstr_fd(cmd, STDERR_FILENO);
         ft_putendl_fd(": Is a directory", STDERR_FILENO);
+    }
+    if (err == EXIT_TOO_ARG)
+        ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
+    if (err == NUMERIC_ARGS)
+    {
+        ft_putstr_fd("minishell: ", STDERR_FILENO);
+        ft_putstr_fd(cmd, STDERR_FILENO);
+        ft_putendl_fd(": numeric argument required", STDERR_FILENO);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:12:30 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/08 08:40:55 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 16:48:39 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,12 @@ pid_t    fork_process()
     return (pid);
 }
 
-void    close_pipe(t_list *list, int i)
+void    close_pipe(t_list *list)
 {
-    if (i == 0)
-    {
-        if (list->pipe_fd[0] != 0)
-            close(list->pipe_fd[0]);
-        if (list->pipe_fd[1] != 1)
-            close(list->pipe_fd[1]);
-    }
-    else
-    {
-        if (list->heredoc_fd[0] != 0)
-            close(list->heredoc_fd[0]);
-        if (list->heredoc_fd[1] != 1)
-            close(list->heredoc_fd[1]);
-    }
+    if (list->pipe_fd[0] != 0)
+        close(list->pipe_fd[0]);
+    if (list->pipe_fd[1] != 1)
+        close(list->pipe_fd[1]);
 }
 
 // void    wait_child(t_list *list)

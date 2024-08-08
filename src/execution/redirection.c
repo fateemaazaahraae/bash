@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:55:06 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 12:54:18 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 16:49:18 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,12 @@ void    dup_out_pipe(t_list *list)
 {
     if (list->next)
     {
-        // if (list->files)
-        //     dup_outfile(list->files);
         if (!is_there_outfile(list->files))
         {
             dup2(list->pipe_fd[1], STDOUT_FILENO);
-            close_pipe(list, 0);
+            close_pipe(list);
         }
     }
-    // else if (list->files)
-    //         dup_outfile(list->files);
 }
 
 void restore_stdio(int saved_stdin, int saved_stdout)

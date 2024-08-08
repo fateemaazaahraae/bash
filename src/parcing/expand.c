@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/08 08:54:34 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 17:43:40 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,47 +87,4 @@ char *handle_expand()
     }
     free(global_data->cmd);
     return (str);
-}
-
-void    handle_quote(char *token, int *j, char **str)
-{
-    int start;
-    int end;
-
-    (*j)++;
-    start = *j;
-    while (token[*j] && token[*j] != '\'' && token[*j] != '"')
-        (*j)++;
-    end = *j;
-    *str = ft_strjoin(*str, ft_substr(token, start, end - start));
-}
-
-/* after expand we remove the master quote ex : echo "'hello'" ----> echo 'hello'*/
-void    remove_quotes(t_list *tmp)
-{
-    int     i;
-    int     j;
-    char    *str;
-    t_list  *list;
-
-    list = tmp;
-    while (list)
-    {
-        i = -1;
-        while (list->mini_tokens[++i])
-        {
-            j = -1;
-            str = NULL;
-            while (list->mini_tokens[i][++j])
-            {
-                if (list->mini_tokens[i][j] == '\'' || list->mini_tokens[i][j] == '"')
-                    handle_quote(list->mini_tokens[i], &j, &str);
-                else
-                    str = ft_strjoin_char(str, list->mini_tokens[i][j]);
-            }
-            free(list->mini_tokens[i]);
-            list->mini_tokens[i] = str;
-        }
-        list = list->next;
-    }
 }

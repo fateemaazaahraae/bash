@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:16:28 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 18:23:10 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 16:49:04 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int    execute_cmd(t_list *list)
     else
     {
         dup2(list->pipe_fd[0], STDIN_FILENO);
-        close_pipe(list, 0);
+        close_pipe(list);
     }
     return (0);
 }

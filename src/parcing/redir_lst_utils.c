@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 15:00:38 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 13:09:43 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/08 17:54:41 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_redir	*ft_lstnew_redir(char *name, int flag)
     else if (flag == 3)
     {
         node->type = HERE_DOC;
+        if (ft_strchr(name, '"') || ft_strchr(name, '\''))
+            name = remove_quote_from_lim(name, &node->lim_flag);
         node->lim = ft_strdup(name);
         here_doc(node);
     }

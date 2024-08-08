@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:55:44 by fbazaz            #+#    #+#             */
-/*   Updated: 2024/08/07 15:50:20 by aakouhar         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:50:15 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,14 @@ typedef enum s_type{
 }	f_type;
 
 typedef struct s_redir{
-	int fd;
-	char *lim;
-	char *filename;
-	f_type type;
+	int		fd;
+	char	*lim;
+	int		lim_flag;
+	char	*filename;
+	f_type	type;
 	struct	s_redir	*next;
 	
 } t_redir;
-
-typedef struct s_limiter
-{
-	char *lim;
-	struct s_limiter *next;
-}	t_limiter;
-
 
 typedef struct s_list
 {
@@ -49,8 +43,6 @@ typedef struct s_list
 	t_redir 		*files;
 	int				pipe_fd[2];
 	pid_t			pid;
-	t_limiter		*limiter;//1
-	int				heredoc_fd[2];//1
 	struct s_list	*next;
 }			t_list;
 
@@ -62,7 +54,7 @@ int		ft_isprint(int c);
 size_t	ft_strlen(const char *s);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
-int	ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlcpy(char *dest, char *src, size_t dest_size);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
