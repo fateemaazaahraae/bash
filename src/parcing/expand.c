@@ -6,7 +6,7 @@
 /*   By: fbazaz <fbazaz@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 11:29:30 by aakouhar          #+#    #+#             */
-/*   Updated: 2024/08/08 17:43:40 by fbazaz           ###   ########.fr       */
+/*   Updated: 2024/08/09 11:30:09 by fbazaz           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void    expand(int *i, char **str)
 /* handle_expand function will expand the vars and free the global_data->cmd and return the new one*/
 char *handle_expand()
 {
-    int i;
-    char *str;
+    char    *str;
+    int     i;
 
     i = -1;
-    str = ft_strdup("");
+    str = NULL;
     while (global_data->cmd[++i])
     {
         if (global_data->cmd[i] == '\'')
